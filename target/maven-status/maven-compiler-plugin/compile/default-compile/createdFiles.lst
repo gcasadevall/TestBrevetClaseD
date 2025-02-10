@@ -1,4 +1,6 @@
 com\gcs\testbrevet\Pregunta.class
 com\gcs\testbrevet\PruebaBrevet.class
 com\gcs\testbrevet\TestBrevet.class
+com\gcs\testbrevet\PruebaNautica$Pregunta.class
 com\gcs\testbrevet\Opcion.class
+com\gcs\testbrevet\PruebaNautica.class

@@ -18,7 +18,7 @@ public class PruebaBrevet {
     public void listar() {
 
         System.out.println("Bienvenido al examen Brevet categoria D");
-        
+
         int nroPregunta = 1;
         for (Pregunta pregunta : preguntas) {
 
@@ -27,7 +27,7 @@ public class PruebaBrevet {
             for (Opcion opcion : pregunta.getOpciones()) {
                 if (opcion.isCorrecta()) {
                     System.out.println("\tR: " + opcion.getOpcion());
-                }                
+                }
             }
 
             nroPregunta++;
@@ -37,34 +37,34 @@ public class PruebaBrevet {
     public void realizar() {
         realizar(false);
     }
-    
+
     public void realizar(boolean mostrarRespuestaErronea) {
 
-        limpiarPantalla();        
-        
-        int nroPregunta = 1;             
+        limpiarPantalla();
+
+        int nroPregunta = 1;
         int nroPreguntasCorrectas = 0;
         int nroPreguntasIncorrectas = 0;
-        int cantPreguntasCorrectasSalva = 60;
+        int cantPreguntasCorrectasSalva = 70;
         boolean salir = false;
-        
+
         for (Pregunta pregunta : preguntas) {
-            
-            while(true) {
-                
+
+            while (true) {
+
                 System.out.println("*** Bienvenido al examen Brevet categoria D ***");
-                System.out.println("\nPregunta "+nroPregunta+" de "+preguntas.size());
-                System.out.println("Preguntas correctas "+nroPreguntasCorrectas);
-                System.out.println("Preguntas incorrectas "+nroPreguntasIncorrectas);    
-                                
+                System.out.println("\nPregunta " + nroPregunta + " de " + preguntas.size());
+                System.out.println("Preguntas correctas " + nroPreguntasCorrectas);
+                System.out.println("Preguntas incorrectas " + nroPreguntasIncorrectas);
+
                 // Inicializo 
-                int nroOpcion = 0;           
-                int nroOpcionCorrecta = 0;        
-                                  
+                int nroOpcion = 0;
+                int nroOpcionCorrecta = 0;
+
                 // Imprimo pregunta
                 System.out.println("\n" + nroPregunta + ") " + pregunta.getPregunta());
                 for (Opcion opcion : pregunta.getOpciones()) {
-                    System.out.println("\t[" + nroOpcion + "] - " + opcion.getOpcion() );
+                    System.out.println("\t[" + nroOpcion + "] - " + opcion.getOpcion());
                     if (opcion.isCorrecta()) {
                         nroOpcionCorrecta = nroOpcion;
                     }
@@ -72,54 +72,54 @@ public class PruebaBrevet {
                 }
 
                 // Pregunto respuesta
-                int nroOpcionElegida = preguntar(pregunta.getOpciones().size()-1);                
+                int nroOpcionElegida = preguntar(pregunta.getOpciones().size() - 1);
                 if (nroOpcionElegida == -1) {
                     salir = true;
                     break;
                 } else if (nroOpcionElegida == -2) {
-                    System.out.println("\nOpción inválida, debe ingresar un número entre 0 y "+pregunta.getOpciones().size());
+                    System.out.println("\nOpción inválida, debe ingresar un número entre 0 y " + pregunta.getOpciones().size());
                     esperar();
                     limpiarPantalla();
                 } else {
-                    
+
                     if (nroOpcionCorrecta == nroOpcionElegida) {
                         nroPreguntasCorrectas++;
                         limpiarPantalla();
                     } else {
                         if (mostrarRespuestaErronea) {
-                            System.out.println("\nRespuesta equivocada la correcta era la nro "+nroOpcionCorrecta);
+                            System.out.println("\nRespuesta equivocada la correcta era la nro " + nroOpcionCorrecta);
                             esperar();
                         }
                         nroPreguntasIncorrectas++;
                         limpiarPantalla();
                     }
                     break;
-                }               
+                }
             }
-            
+
             if (salir) {
                 break;
             }
-            
+
             nroPregunta++;
         }
-        
-        if(salir) {
+
+        if (salir) {
             System.out.println("\n*** Se abortó la prueba ***");
         } else {
             if (nroPreguntasCorrectas >= cantPreguntasCorrectasSalva) {
                 System.out.println("\n\n F E L I C I T A C I O N E S   S A L V O  !!");
             } else {
-                System.out.println("\n\n LO SIENTO A ESTUDIAR MAS PERDIO !!");
+                System.out.println("\n\n LO SIENTO A ESTUDIAR MAS o Comprarle un Chivas al profe. !!");
             }
             System.out.println("\n\n*** Fin de la prueba ***");
         }
     }
-    
+
     /**
-     * Pregunta un numero
-     * Si se ingresa "Salir" retorna -1
-     * Si se ingresa una opcion invalida entre 0 y max retorna -2
+     * Pregunta un numero Si se ingresa "Salir" retorna -1 Si se ingresa una
+     * opcion invalida entre 0 y max retorna -2
+     *
      * @return un numero entre 0 y max o -1 o -2
      */
     private int preguntar(int max) {
@@ -130,44 +130,44 @@ public class PruebaBrevet {
             if (option.equalsIgnoreCase("Salir")) {
                 return -1;
             }
-            int nro = Integer.parseInt(option);            
-            if (nro >= 0 && nro <= max ) {
+            int nro = Integer.parseInt(option);
+            if (nro >= 0 && nro <= max) {
                 return nro;
             } else {
                 return -2;
             }
-        } catch (NumberFormatException e) {            
-            return -2;  
+        } catch (NumberFormatException e) {
+            return -2;
         }
     }
-    
+
     public void esperar() {
         System.out.println("Presione enter para continuar.");
-        new java.util.Scanner(System.in).nextLine();            
+        new java.util.Scanner(System.in).nextLine();
     }
-    
-    public void limpiarPantalla(){
+
+    public void limpiarPantalla() {
         try {
             String sistemaOperativo = System.getProperty("os.name");
-            ArrayList<String> comando= new ArrayList<>();
-            if(sistemaOperativo.contains("Windows")){        
+            ArrayList<String> comando = new ArrayList<>();
+            if (sistemaOperativo.contains("Windows")) {
                 comando.add("cmd");
                 comando.add("/C");
                 comando.add("cls");
-                
+
             } else {
                 comando.add("clear");
-            } 
-            
+            }
+
             ProcessBuilder pb = new ProcessBuilder(comando);
             Process iniciarProceso = pb.inheritIO().start();
             iniciarProceso.waitFor();
-            
+
         } catch (Exception e) {
-            System.out.println("Error al limpiar la pantalla"+e.getMessage());
+            System.out.println("Error al limpiar la pantalla" + e.getMessage());
         }
     }
-    
+
     private List<Pregunta> cargarPreguntas() {
         List<Pregunta> preguntas = new LinkedList<>();
 
@@ -224,31 +224,31 @@ public class PruebaBrevet {
         pregunta.addOpcion("Dos conos negros unidos por sus puntas o un canasto de pesca", true);
         pregunta.addOpcion("Un balon negro a babor");
         pregunta.addOpcion("Una señal bicónica");
-        pregunta.addOpcion("Ninguna señal");        
+        pregunta.addOpcion("Ninguna señal");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Qué señal deberá exhibir todo buque sin gobierno en horas del día");
         pregunta.addOpcion("Dos balones negros", true);
         pregunta.addOpcion("Una señal bicónica");
-        pregunta.addOpcion("Ninguna señal");   
+        pregunta.addOpcion("Ninguna señal");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Qué señal deberá tener izada durante el día toda embarcación que se encuentre fondeada");
         pregunta.addOpcion("Un balón negro", true);
         pregunta.addOpcion("Una señal bicónica");
-        pregunta.addOpcion("Ninguna señal");   
-        
+        pregunta.addOpcion("Ninguna señal");
+
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Qué señal deberá exhibir todo buque varado durante el día");
         pregunta.addOpcion("Tres balones negros en linea vertical", true);
         pregunta.addOpcion("Una señal bicónica");
-        pregunta.addOpcion("Ninguna señal");           
+        pregunta.addOpcion("Ninguna señal");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Las embarcaciones de menos de 7 metros de eslora cuando están fondeadas o varadas fuera de la zona de navegación, paso o canales deberán de llevar las luces o señales de un buque varado o fondeado");
         pregunta.addOpcion("No", true);
-        pregunta.addOpcion("Si");        
+        pregunta.addOpcion("Si");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que se entiende por pitada corta");
@@ -260,25 +260,25 @@ public class PruebaBrevet {
         pregunta = new Pregunta("Que se entiende por pitada larga");
         pregunta.addOpcion("Un sonido de aproximadamente cuatro a seis segundo", true);
         pregunta.addOpcion("Un sonido de seis segundo");
-        pregunta.addOpcion("Un sonido de 1 minuto");        
+        pregunta.addOpcion("Un sonido de 1 minuto");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que significa una pitada corta");
         pregunta.addOpcion("Caigo a estribor", true);
         pregunta.addOpcion("Caigo a babor");
-        pregunta.addOpcion("Sigo de largo");                
+        pregunta.addOpcion("Sigo de largo");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que significan dos pitadas cortas");
         pregunta.addOpcion("Caigo a babor", true);
-        pregunta.addOpcion("Sigo de largo");                
-        pregunta.addOpcion("Caigo a estribor");        
+        pregunta.addOpcion("Sigo de largo");
+        pregunta.addOpcion("Caigo a estribor");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que significan tres pitadas cortas");
         pregunta.addOpcion("Estoy dando atrás", true);
         pregunta.addOpcion("Estoy cruzando");
-        pregunta.addOpcion("No significa nada");        
+        pregunta.addOpcion("No significa nada");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Cuando dos embarcaciones se encuentran a la vista en un paso o canal angosto. Que señales deberá realizar el buque que pretende alcanzar a otro.");
@@ -292,51 +292,51 @@ public class PruebaBrevet {
         pregunta = new Pregunta("Que señal deberá realizar todo buque que no entiende las intenciones del otro");
         pregunta.addOpcion("Cinco pitadas cortas y rápidas", true);
         pregunta.addOpcion("Tres pitadas largas");
-        pregunta.addOpcion("Ninguna señal");        
+        pregunta.addOpcion("Ninguna señal");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que señal deberá realizar un buque navegando en zonas de visibilidad reducida");
         pregunta.addOpcion("Una pitada larga cada 2 minutos", true);
         pregunta.addOpcion("Dos pitadas cortas");
-        pregunta.addOpcion("Ninguna señal");        
+        pregunta.addOpcion("Ninguna señal");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que señal sónica deberán realizar los buques sin gobierno, pesqueros, veleros con capacidad de maniobra reducido o todo buque remolcado cuando navegan en zonas de visibilidad reducida.");
         pregunta.addOpcion("Una pitada larga seguida de 2 cortas con un intervalo de 2 minutos", true);
         pregunta.addOpcion("Dos pitadas cortas");
-        pregunta.addOpcion("Ninguna señal");                
+        pregunta.addOpcion("Ninguna señal");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que señal sónica deberá realizar todo buque fondeado en zona de visibilidad reducida");
         pregunta.addOpcion("Repiques de campana con una duración de 5 segundos con un intervalo de mas de un minuto", true);
         pregunta.addOpcion("Dos pitadas cortas");
-        pregunta.addOpcion("Ninguna señal");                
+        pregunta.addOpcion("Ninguna señal");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que es la velocidad de seguridad");
         pregunta.addOpcion("Es la que permite efectuar la maniobra adecuada y eficaz para evitar un abordaje", true);
         pregunta.addOpcion("A 20 nudos");
-        pregunta.addOpcion("La mas rapida");     
+        pregunta.addOpcion("La mas rapida");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que elementos se deberán tener en cuenta para determinar la velocidad de seguridad");
         pregunta.addOpcion("Visibilidad, Densidad del trafico, Maniobrabilidad, Estado del viento y corriente, Calado", true);
         pregunta.addOpcion("Solamente la visibilidad");
         pregunta.addOpcion("Solamente Maniobrabilidad del buque");
-        pregunta.addOpcion("Con el estado del viento y corriente alcanza");        
+        pregunta.addOpcion("Con el estado del viento y corriente alcanza");
         pregunta.addOpcion("Ninguna");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Como determina que existe el riesgo de colisión, cuando 2 buques navegan en rumbos encontrados");
         pregunta.addOpcion("Si la demora del buque que se aproxima es constante o sin variación apreciable", true);
         pregunta.addOpcion("Si se nota que el buque está varado");
-        pregunta.addOpcion("No hay forma de determinarlo");                
+        pregunta.addOpcion("No hay forma de determinarlo");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Como deberá ser realizada una buena maniobra para evitar un abordaje");
         pregunta.addOpcion("Debe ser realizada de tal forma que los buques pasen en distancias seguras", true);
         pregunta.addOpcion("Debe ser realizada de tal forma que los buques pasen lo mas cerca posible");
-        pregunta.addOpcion("Ninguna maniobra sera posible");                
+        pregunta.addOpcion("Ninguna maniobra sera posible");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Si navegando por un canal se encuentran dos embarcaciones con rumbos encontrados que maniobra deberán realizar.");
@@ -347,30 +347,30 @@ public class PruebaBrevet {
 
         pregunta = new Pregunta("Pueden las embarcaciones menores de 20 metros o los buques de vela navegar por un canal dificultando la navegación de los buques de mayor tonelaje");
         pregunta.addOpcion("No", true);
-        pregunta.addOpcion("Si");                
+        pregunta.addOpcion("Si");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Puede un buque cruzar un paso o canal si al hacerlo interfiere el transito de otro buque");
         pregunta.addOpcion("No", true);
-        pregunta.addOpcion("Si");                
+        pregunta.addOpcion("Si");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Cuando un buque de fuerza motriz y un velero están avanzando en direcciones que involucren riesgo de colisión en aguas libres quien deberá mantenerse apartado de la ruta del otro");
         pregunta.addOpcion("El buque de fuerza motriz", true);
-        pregunta.addOpcion("El velero");        
+        pregunta.addOpcion("El velero");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Cuando dos veleros se aproximan uno al otro y reciben el viento por bandas contrarias cual de ellos deberá mantenerse apartado de la derrota del otro");
         pregunta.addOpcion("El que reciba el viento por babor", true);
-        pregunta.addOpcion("El que reciba el viento por estribor");        
-        pregunta.addOpcion("Ninguno");                
+        pregunta.addOpcion("El que reciba el viento por estribor");
+        pregunta.addOpcion("Ninguno");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Puede una embarcación fondear en un canal angosto");
         pregunta.addOpcion("No deberá si es posible salir del canal para no estorbar la navegación", true);
         pregunta.addOpcion("Podrá hacerlo siempre que no estorbe la navegacion");
-        pregunta.addOpcion("Ninguna");                
-        
+        pregunta.addOpcion("Ninguna");
+
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Cuando dos veleros que naveguen con rumbos cruzados y pudiera existir riesgo de abordaje y ambos reciban el viento por la misma banda cual de ellos se mantendrá apartado de la derrota del otro");
@@ -387,7 +387,7 @@ public class PruebaBrevet {
 
         pregunta = new Pregunta("Que significa sotavento");
         pregunta.addOpcion("Banda opuesta a donde viene el viento", true);
-        pregunta.addOpcion("Banda desde donde viene el viento");       
+        pregunta.addOpcion("Banda desde donde viene el viento");
         pregunta.addOpcion("Ninguna");
         preguntas.add(pregunta);
 
@@ -541,7 +541,7 @@ public class PruebaBrevet {
 
         pregunta = new Pregunta("Que indica un descenso rápido en la presión atmosférica");
         pregunta.addOpcion("Un cambio en las condiciones del tiempo generalmente con aportes de viento fuerte", true);
-        pregunta.addOpcion("Un aumento en la humedad relativa y la escasez de vientos");        
+        pregunta.addOpcion("Un aumento en la humedad relativa y la escasez de vientos");
         pregunta.addOpcion("No significa nada");
         preguntas.add(pregunta);
 
@@ -567,7 +567,7 @@ public class PruebaBrevet {
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("En épocas de verano y en situaciones normales cual es el régimen de rotación de los vientos en el rio de la plata");
-        pregunta.addOpcion("Durante la noche sopla del norte por la mañana rota por el oeste y se coloca del este sureste", true);
+        pregunta.addOpcion("Durante la noche sopla del norte por la mañana rota por el oeste y se coloca al este-sureste", true);
         pregunta.addOpcion("Durante la noche sopla del sur y por la mañana rota por el este y se coloca en el oeste");
         pregunta.addOpcion("Durante la noche sopla del oeste y por la mañana cambia al sur");
         pregunta.addOpcion("Ninguna");
@@ -603,14 +603,14 @@ public class PruebaBrevet {
         pregunta = new Pregunta("Que tipo de extintor debe usarse preferentemente en un incendio de combustible sólido");
         pregunta.addOpcion("Chorro de agua", true);
         pregunta.addOpcion("De Anhídrido Carbónico (CO2)");
-        pregunta.addOpcion("De polvo");        
+        pregunta.addOpcion("De polvo");
         pregunta.addOpcion("Ninguna");
         preguntas.add(pregunta);
 
         pregunta = new Pregunta("Que tipo de extintor debe usarse preferentemente en un incendio de combustible liquido");
         pregunta.addOpcion("Espuma mecánica", true);
         pregunta.addOpcion("De Anhídrido Carbónico (CO2)");
-        pregunta.addOpcion("De polvo");        
+        pregunta.addOpcion("De polvo");
         pregunta.addOpcion("Ninguna");
         preguntas.add(pregunta);
 
@@ -679,8 +679,119 @@ public class PruebaBrevet {
         pregunta.addOpcion("Ninguna");
         preguntas.add(pregunta);
 
-        Collections.shuffle(preguntas); 
-        
+        // Nuevas completan las 100
+        // TODO: INCLUIR OPCIONES FALSAS.
+        pregunta = new Pregunta("¿Qué arco de horizonte visible debe tener la luz de tope?");
+        pregunta.addOpcion("225° repartidos desde la proa, 112°5’ a cada banda.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué arco de horizonte visible deben tener las luces de banda?");
+        pregunta.addOpcion("112°5 desde la proa.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué alcance lumínico deben tener la luz de tope? en buques de:");
+        pregunta.addOpcion("a. 50 o más metros de eslora....................... 6 millas.", true);
+        pregunta.addOpcion("b. Entre 20 y 50 metros de eslora................ 5 millas", true);
+        pregunta.addOpcion("c. Entre 12 y 20 metros de eslora................ 3 millas.", true);
+        pregunta.addOpcion("d. Menos de 12 metros de eslora................. 2 millas.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué alcance lumínico debe tener las luces de banda de un buque de:");
+        pregunta.addOpcion("a. 50 o más metros de eslora....................... 3 millas.", true);
+        pregunta.addOpcion("b. Entre 12 y 50 metros de eslora................ 2 millas.", true);
+        pregunta.addOpcion("c. Menos de 12 metros de eslora................. 1 millas.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué luces adicionales deberá llevar un buque que realiza tareas de remolque, siendo la longitud de este superior a 183 metros?");
+        pregunta.addOpcion("3 luces blancas verticales.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué arco de horizonte deben tener las luces que indican buque en tareas de remolque?");
+        pregunta.addOpcion("Iguales a las luces de tope, 225°.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué luces exhibirá todo buque remolcado durante la noche?");
+        pregunta.addOpcion("Luces de banda y luz de alcance.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué luces adicionales exhibirán durante la noche los buques pesqueros dedicados a la pesca de arrastre?");
+        pregunta.addOpcion("Dos luces en línea vertical todo el horizonte, verde la superior y blanca la inferior.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué luces exhibirán además de la reglamentaria los buques pesqueros que no sean de arrastre?");
+        pregunta.addOpcion("2 luces todo horizonte en línea vertical, roja la superior y blanca la inferior.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué luces deberá exhibir un buque sin gobierno que no tenga arrancada?");
+        pregunta.addOpcion("2 luces rojas visible en todo el horizonte en línea vertical en lugar más visible", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué luz deberán tener durante la noche todo buque fondeado de menos de 45 ,75 metros de eslora?");
+        pregunta.addOpcion("Una luz blanca todo horizonte en proa en el lugar más visible.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué luces deberán mostrar todo buque de menos de 45,75 metros de eslora varado durante la noche?");
+        pregunta.addOpcion("Una luz blanca a proa todo horizonte y dos luces rojas en línea vertical todo horizonte.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿ Cómo indica por medio de destellos que caerá a estribor?");
+        pregunta.addOpcion("Un destello.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Cómo indica por destellos que caerá a babor?");
+        pregunta.addOpcion("Dos destellos.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Cómo indica por medio de destellos que está dando maquina atrás?");
+        pregunta.addOpcion("Tres destellos.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Cuál es la duración aproximada de un destello?");
+        pregunta.addOpcion("1 segundo.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Cuál es el intervalo entre destello y destello?");
+        pregunta.addOpcion("1 segundo.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Cuál es el intervalo entre señales sucesivas?");
+        pregunta.addOpcion("No menor de 10 segundos.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿En el sistema de boyado IALA B de nuestra zona qué tres elementos caracterizan las boyas?");
+        pregunta.addOpcion("La forma, el color y los destellos en color y frecuencia.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Una boya Cardinal Norte qué indica y cómo está marcada?");
+        pregunta.addOpcion("Indica Aguas Seguras al Norte y está indicada por color Negro arriba y Amarillo abajo, extremo con forma de dos conos punta hacia arriba y destellos blancos continuos cada un segundo.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("En IALA B en donde se encuentran nuestras aguas saliendo de puerto o navegando aguas abajo ¿cómo se indica el margen lateral de babor? (indicar color, forma y destellos)");
+        pregunta.addOpcion("Con boya roja forma de extremo cónico destellos rojos en grupo cada un periodo determinado.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué características tiene una boya de Peligro Aislado?");
+        pregunta.addOpcion("En el extremo superior tiene dos bolas negras, pintada de colores negro arriba y rojo abajo, y destellos blancos de dos cada cierto periodo.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué es un RACON y por su característica como se distingue de otro en la zona?");
+        pregunta.addOpcion("Es un dispositivo Respondedor de la emisión de un radar generando una imagen en la pantalla de este indicando una letra del código Morse.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Qué significa una boya amarilla y que características de forma y destello tiene?");
+        pregunta.addOpcion("Indica una marca especial con una cruz en la parte superior y destellos continuos color amarillo.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Dentro de que zona está autorizada a navegar una embarcación habilitada para zona 'B'?");
+        pregunta.addOpcion("En todo el Río de la Plata y una franja costera oceánica de 15 millas de ancho hasta la desembocadura del Arroyo Chuy.", true);
+        preguntas.add(pregunta);
+
+        pregunta = new Pregunta("¿Dentro de que radio está autorizada a navegar una embarcación habilitada para hacerlo en la zona 'C'?");
+        pregunta.addOpcion("Estará autorizada a navegar en un radio de 15 millas de puerto de despacho, en el Río de la Plata interior y Océano Atlántico. En el Río de la Plata superior y el Río Uruguay dicho radio será de 20 millas.", true);
+        preguntas.add(pregunta);
+
+        Collections.shuffle(preguntas);
+
         return preguntas;
     }
 
