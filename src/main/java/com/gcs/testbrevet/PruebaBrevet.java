@@ -795,4 +795,9 @@ public class PruebaBrevet {
         return preguntas;
     }
 
+    public List<Pregunta> getPreguntas() {
+        // Devuelve una copia no modificable para proteger la lista original de preguntas
+        return Collections.unmodifiableList(this.preguntas);
+    }
+
 }
